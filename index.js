@@ -80,7 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (timeState.time <= 0) {
           clearInterval(interval);
           alert("Time's up! You lose!");
-          location.reload();
+          // Add back the overlay
+          const overlay = document.getElementById("overlay");
+          overlay.style.display = "block";
+          // location.reload();
         } else {
           console.log("Time left: " + timeState.time);
           timeState.time--;
@@ -273,6 +276,9 @@ function handleCardClick(event) {
         setTimeout(() => {
           // location.reload();
           alert("You win!");
+          // Add back the overlay
+          const overlay = document.getElementById("overlay");
+          overlay.style.display = "block";
         }, 500);
       }
       // remove event listeners from matched cards
