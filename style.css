@@ -6,16 +6,22 @@ body {
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  width: 80vw;
-  height: 60vh;
-  justify-content: center;
+  justify-content: space-evenly;
+
+  /* width: 80vw; */
+  padding: 10px;
   gap: 5px;
+  border: 2px solid tomato;
 }
 
 .card {
+  display: flex;
+  /* flex: 1 0 150px; */
   width: 150px;
-  /* flex: auto; */
-  /* position: relative; */
+  height: 150px;
+  align-self: center;
+  justify-content: center;
+
   transition: transform 1s;
   perspective: 1000px;
   transform-style: preserve-3d;
@@ -30,7 +36,10 @@ body {
 }
 
 img {
-  width: 100%;
+  width: 150px;
+  height: 150px;
+  aspect-ratio: 1;
+  align-self: center;
 }
 
 .front_face,

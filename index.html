@@ -104,11 +104,31 @@
     <div id="game_grid" class="container-fluid justify-content-between">
       <div id="loading" class="">Loading...</div>
       <template id="card_template">
-        <div class="card">
+        <div class="card text-center">
           <img class="front_face" src="001.png" alt="" />
           <img class="back_face" src="back.webp" alt="" />
         </div>
       </template>
+    </div>
+    <div class="container">
+      <h3>Power ups</h3>
+      <ul class="list-unstyled d-flex gap-2">
+        <li>
+          <button id="powerup1" class="btn btn-outline-primary">
+            Quick Peak
+          </button>
+        </li>
+        <li>
+          <button id="powerup2" class="btn btn-outline-primary">
+            More Time
+          </button>
+        </li>
+        <li>
+          <button id="powerup3" class="btn btn-outline-primary">
+            Reveal One Match
+          </button>
+        </li>
+      </ul>
     </div>
 
     <!-- Modal -->
