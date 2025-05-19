@@ -6,7 +6,6 @@ body {
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   position: relative;
   padding: 10px;
   gap: 5px;
