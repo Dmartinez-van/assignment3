@@ -1,7 +1,7 @@
 // Game variables
 let firstCard, secondCard;
 let hasFlippedCard = false;
-let lockBoard = false;
+let lockBoard = true;
 let matchedCards = 0;
 let clickCount = 0;
 
@@ -61,7 +61,21 @@ document.addEventListener("DOMContentLoaded", function () {
   let interval;
   startBtn.addEventListener("click", function () {
     if (!startFlag) {
+      // Start the game, enable the board
       startFlag = true;
+      lockBoard = false;
+
+      // Remove overlay
+      const overlay = document.getElementById("overlay");
+      overlay.style.display = "none";
+
+      // Enable powerups
+      enablePowerups();
+
+      // Start the timer
+      // Condition for when timer hits 0 - user loses
+      // Else, count down the timer
+      // If user clicks stop, stop the timer and reset the time and board
       interval = setInterval(() => {
         if (timeState.time <= 0) {
           clearInterval(interval);
@@ -79,13 +93,19 @@ document.addEventListener("DOMContentLoaded", function () {
       startBtn.textContent = "Stop";
     } else {
       startFlag = false;
+      lockBoard = true;
+
+      // Add back the overlay
+      const overlay = document.getElementById("overlay");
+      overlay.style.display = "block";
+
       clearInterval(interval);
       timeState.time = timerMultiplier * 60; // 1 minute for easy, 2 minutes for medium, 3 minutes for hard
       let minutes = Math.floor(timeState.time / 60);
       let seconds = timeState.time % 60;
       timer.innerHTML = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
       startBtn.textContent = "Start";
-      resetPowerups();
+      disablePowerups();
     }
   });
 
@@ -94,8 +114,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const clickCountDisplay = document.getElementById("click_count");
   gameGrid.addEventListener("click", function (event) {
     if (
-      event.target.classList.contains("card") ||
-      event.target.classList.contains("back_face")
+      !lockBoard &&
+      (event.target.classList.contains("card") ||
+        event.target.classList.contains("back_face"))
     ) {
       clickCount++;
       clickCountDisplay.innerHTML = clickCount;
@@ -113,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
   createGame(Number(difficulty));
   addPowerup1();
   addPowerup2();
+  addPowerup3();
 });
 
 async function createGame(difficulty = 1) {
@@ -307,7 +329,51 @@ function addPowerup2() {
   });
 }
 
-function resetPowerups() {
+function addPowerup3() {
+  document.getElementById("powerup3").addEventListener("click", function () {
+    console.log("Powerup 3 activated!");
+    // Powerup 3: Show one matching pair of cards
+    const cards = document.querySelectorAll(".card");
+    const firstCard = cards[Math.floor(Math.random() * cards.length)];
+    const secondCard = Array.from(cards).find(
+      (card) =>
+        card !== firstCard &&
+        card.querySelector(".front_face").src ===
+          firstCard.querySelector(".front_face").src
+    );
+    if (secondCard) {
+      firstCard.classList.add("flip");
+      secondCard.classList.add("flip");
+
+      // increase the number of matches made
+      matchedCards++;
+      const matchCountDisplay = document.getElementById("matches");
+      matchCountDisplay.innerHTML = matchedCards;
+
+      // update the number of matches left to be made
+      const matchesLeft = document.getElementById("matches_left");
+      matchesLeft.innerHTML = numOfMatches - matchedCards;
+      // check if all matches are made
+      if (matchedCards === difficulty * 3) {
+        fireConfetti();
+        setTimeout(() => {
+          // location.reload();
+          alert("You win!");
+        }, 500);
+      }
+    }
+  });
+}
+
+function disablePowerups() {
+  // Reset powerup buttons
+  document.getElementById("powerup1").disabled = true;
+  document.getElementById("powerup2").disabled = true;
+  document.getElementById("powerup3").disabled = true;
+}
+
+function enablePowerups() {
+  console.log("Powerups enabled!");
   // Reset powerup buttons
   document.getElementById("powerup1").disabled = false;
   document.getElementById("powerup2").disabled = false;

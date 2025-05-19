@@ -103,6 +103,7 @@
 
     <div id="game_grid" class="container-fluid justify-content-between">
       <div id="loading" class="">Loading...</div>
+      <div id="overlay" class=""></div>
       <template id="card_template">
         <div class="card text-center">
           <img class="front_face" src="001.png" alt="" />
@@ -114,17 +115,17 @@
       <h3>Power ups</h3>
       <ul class="list-unstyled d-flex gap-2">
         <li>
-          <button id="powerup1" class="btn btn-outline-primary">
+          <button id="powerup1" class="btn btn-outline-primary" disabled="true">
             Quick Peak
           </button>
         </li>
         <li>
-          <button id="powerup2" class="btn btn-outline-primary">
+          <button id="powerup2" class="btn btn-outline-primary" disabled="true">
             More Time
           </button>
         </li>
         <li>
-          <button id="powerup3" class="btn btn-outline-primary">
+          <button id="powerup3" class="btn btn-outline-primary" disabled="true">
             Reveal One Match
           </button>
         </li>
