@@ -16,6 +16,7 @@ let screenHeight = window.innerHeight;
 
 // Timer variables
 let startFlag = false;
+let timeState = { time: 180 }; // 3 minutes for hard, 2 minutes for medium, 1 minute for easy
 
 // Load game when DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
@@ -52,9 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const timer = document.getElementById("timer");
 
   let timerMultiplier = difficulty == 1 ? 3 : difficulty == 2 ? 2 : 1;
-  let time = timerMultiplier * 60; // 1 minute for easy, 2 minutes for medium, 3 minutes for hard
-  let minutes = Math.floor(time / 60);
-  let seconds = time % 60;
+  timeState.time = timerMultiplier * 60; // 1 minute for easy, 2 minutes for medium, 3 minutes for hard
+  let minutes = Math.floor(timeState.time / 60);
+  let seconds = timeState.time % 60;
   timer.innerHTML = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 
   let interval;
@@ -62,15 +63,16 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!startFlag) {
       startFlag = true;
       interval = setInterval(() => {
-        if (time <= 0) {
+        if (timeState.time <= 0) {
           clearInterval(interval);
           alert("Time's up! You lose!");
           location.reload();
         } else {
-          time--;
-          minutes = Math.floor(time / 60);
-          seconds = time % 60;
-          milliseconds = Math.floor((time % 1) * 1000);
+          console.log("Time left: " + timeState.time);
+          timeState.time--;
+          minutes = Math.floor(timeState.time / 60);
+          seconds = timeState.time % 60;
+          milliseconds = Math.floor((timeState.time % 1) * 1000);
           timer.innerHTML = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
         }
       }, 1000);
@@ -78,11 +80,12 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       startFlag = false;
       clearInterval(interval);
-      let time = timerMultiplier * 60; // 1 minute for easy, 2 minutes for medium, 3 minutes for hard
-      let minutes = Math.floor(time / 60);
-      let seconds = time % 60;
+      timeState.time = timerMultiplier * 60; // 1 minute for easy, 2 minutes for medium, 3 minutes for hard
+      let minutes = Math.floor(timeState.time / 60);
+      let seconds = timeState.time % 60;
       timer.innerHTML = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
       startBtn.textContent = "Start";
+      resetPowerups();
     }
   });
 
@@ -108,6 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
   matchesLeft.innerHTML = numOfMatches - matchedCards;
 
   createGame(Number(difficulty));
+  addPowerup1();
+  addPowerup2();
 });
 
 async function createGame(difficulty = 1) {
@@ -270,6 +275,43 @@ function attachListeners() {
   document.querySelectorAll(".card").forEach(function (card) {
     card.addEventListener("click", handleCardClick);
   });
+}
+
+function addPowerup1() {
+  document.getElementById("powerup1").addEventListener("click", function () {
+    console.log("Powerup 1 activated!");
+    // Powerup 1: Flip all cards
+    document.querySelectorAll(".card").forEach(function (card) {
+      card.classList.add("flip");
+
+      // Remove the flip class after a short delay
+      setTimeout(() => {
+        card.classList.remove("flip");
+      }, 650);
+    });
+
+    // Disable the powerup button
+    document.getElementById("powerup1").disabled = true;
+  });
+}
+
+function addPowerup2() {
+  document.getElementById("powerup2").addEventListener("click", function () {
+    console.log("Powerup 2 activated!");
+    // Powerup 2: Add 30 seconds to the timer
+    timeState.time += 30;
+    console.log("ADDED 30 seconds to the timer: ", timeState.time);
+
+    // Disable the powerup button
+    document.getElementById("powerup2").disabled = true;
+  });
+}
+
+function resetPowerups() {
+  // Reset powerup buttons
+  document.getElementById("powerup1").disabled = false;
+  document.getElementById("powerup2").disabled = false;
+  document.getElementById("powerup3").disabled = false;
 }
 
 function fireConfetti() {
