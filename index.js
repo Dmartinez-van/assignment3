@@ -8,6 +8,7 @@ let clickCount = 0;
 // Diffuculty level
 const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get("difficulty") || 1; // default to 1 if not set
+numOfMatches = difficulty * 3; // 3 matches for easy, 6 for medium, 9 for hard
 
 // Screen size and game grid variables
 let screenWidth = window.innerWidth;
@@ -98,8 +99,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Setup listener for the number of matches made
-  const matchCountDisplay = document.getElementById("match_count");
+  // Setup the number of matches made
+  const matches = document.getElementById("matches");
+  matches.innerHTML = matchedCards;
+
+  // Setup the number of matches left to be made
+  const matchesLeft = document.getElementById("matches_left");
+  matchesLeft.innerHTML = numOfMatches - matchedCards;
 
   createGame(Number(difficulty));
 });
@@ -223,12 +229,19 @@ function handleCardClick(event) {
     if (firstCard.src === secondCard.src) {
       // cards match
       matchedCards++;
+      // update the number of matches made
       const matchCountDisplay = document.getElementById("matches");
       matchCountDisplay.innerHTML = matchedCards;
+      // update the number of matches left to be made
+      const matchesLeft = document.getElementById("matches_left");
+      matchesLeft.innerHTML = numOfMatches - matchedCards;
+
+      // check if all matches are made
       if (matchedCards === difficulty * 3) {
+        fireConfetti();
         setTimeout(() => {
-          alert("You win!");
           // location.reload();
+          alert("You win!");
         }, 500);
       }
       // remove event listeners from matched cards
@@ -256,5 +269,102 @@ function attachListeners() {
   // Add event listeners to each card
   document.querySelectorAll(".card").forEach(function (card) {
     card.addEventListener("click", handleCardClick);
+  });
+}
+
+function fireConfetti() {
+  confetti({
+    spread: 360,
+    ticks: 200,
+    gravity: 1,
+    decay: 0.94,
+    startVelocity: 30,
+    particleCount: 100,
+    scalar: 3,
+    shapes: ["image"],
+    shapeOptions: {
+      image: [
+        {
+          src: "https://particles.js.org/images/fruits/apple.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/avocado.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/banana.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/berries.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/cherry.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/grapes.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/lemon.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/orange.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/peach.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/pear.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/pepper.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/plum.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/star.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/strawberry.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/watermelon.png",
+          width: 32,
+          height: 32,
+        },
+        {
+          src: "https://particles.js.org/images/fruits/watermelon_slice.png",
+          width: 32,
+          height: 32,
+        },
+      ],
+    },
   });
 }

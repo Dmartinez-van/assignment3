@@ -25,13 +25,14 @@
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
     <script src="index.js"></script>
   </head>
 
   <body class="bg-dark text-light container-fluid">
     <h1 class="header">Game Name: Memory Game</h1>
-    <div class="container p-2 mb-2 d-flex gap-2 align-items-center border">
-      Game difficulty:
+    <div class="container p-2 mb-2 d-flex gap-2 align-items-center">
+      Difficulty:
       <button id="easy" class="btn btn-success">Easy</button>
       <button id="medium" class="btn btn-primary">Medium</button>
       <button id="hard" class="btn btn-danger">Hard</button>
@@ -39,24 +40,33 @@
         Reset
       </button>
     </div>
-    <div class="container border p-2 mb-2 d-flex gap-2 align-items-center">
-      Timer:
+    <div
+      class="container p-2 mb-2 d-flex gap-2 align-items-center justify-content-center"
+    >
+      <span class="fw-bold fs-1">Timer: </span>
       <span id="timer" class="text-danger fs-1 fw-bold"></span>
     </div>
     <div
-      class="container d-flex justify-content-center align-items-center border border-light gap-2 mb-3"
+      class="container d-flex justify-content-center align-items-center gap-2 mb-3"
     >
-      <div class="p-1 border">
-        Number of Clicks: <span id="click_count">0</span>
+      <div class="p-1">
+        Number of Clicks: <br />
+        <span id="click_count" class="fw-bold">0</span>
       </div>
-      <div class="p-1 border">
-        Number of Matches Made: <span id="matches" class="text-success">0</span>
+      <div class="p-1">
+        Number of Matches Made:
+        <br />
+        <span id="matches" class="text-success fw-bold">0</span>
       </div>
-      <div class="p-1 border">
-        Number of Matches Left: <span id="misses" class="text-danger">0</span>
+      <div class="p-1">
+        Number of Matches Left:
+        <br />
+        <span id="matches_left" class="text-danger fw-bold"></span>
       </div>
-      <div class="p-1 border">
-        Total Number of Matches: <span id="total_matches">6</span>
+      <div class="p-1">
+        Total Number of Matches:
+        <br />
+        <span id="total_matches" class="fw-bold">3</span>
       </div>
     </div>
 

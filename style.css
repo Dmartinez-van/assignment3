@@ -3,13 +3,13 @@ body {
 }
 
 #game_grid {
-  border: 2px tomato solid;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
   width: 80vw;
   height: 60vh;
   justify-content: center;
+  gap: 5px;
 }
 
 .card {
