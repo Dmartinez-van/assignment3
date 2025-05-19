@@ -51,6 +51,15 @@
       <button id="easy" class="btn btn-success">Easy</button>
       <button id="medium" class="btn btn-primary">Medium</button>
       <button id="hard" class="btn btn-danger">Hard</button>
+      <button
+        id="settings"
+        class="btn btn-outline-secondary"
+        data-bs-toggle="modal"
+        data-bs-target="#settingsModal"
+      >
+        <i class="bi bi-gear"></i>
+      </button>
+
       <button id="reset" class="btn btn-outline-danger ms-auto align-self-end">
         Reset
       </button>
@@ -92,7 +101,7 @@
       <button id="start" class="btn btn-primary">Start</button>
     </div>
 
-    <div id="game_grid" class="container-fluid">
+    <div id="game_grid" class="container-fluid justify-content-between">
       <div id="loading" class="">Loading...</div>
       <template id="card_template">
         <div class="card">
@@ -100,6 +109,52 @@
           <img class="back_face" src="back.webp" alt="" />
         </div>
       </template>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="settingsModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="settingsModalLabel"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Settings for the game will go here. <br />
+            Some examples of settings that will be changed are:
+            <ul>
+              <li>Change the difficulty level</li>
+              <li>Change the number of matches</li>
+              <li>Change the time limit</li>
+              <li>Change the number of cards</li>
+              <li>Change the generation of cards (currently 1-151)</li>
+              <li>Change between shiney, game sprite, or both</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Discard Changes
+            </button>
+            <button type="button" class="btn btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
