@@ -131,6 +131,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const matchesLeft = document.getElementById("matches_left");
   matchesLeft.innerHTML = numOfMatches - matchedCards;
 
+  // Setup the total number of matches
+  const totalMatches = document.getElementById("total_matches");
+  totalMatches.innerHTML = numOfMatches;
+
   createGame(Number(difficulty));
   addPowerup1();
   addPowerup2();
